@@ -1,0 +1,42 @@
+#exponential model for population growth
+#single species
+
+
+import matplotlib.pyplot as plt
+
+#define parameters
+r=2     #growth rate
+
+# model parameters
+dt = 0.001
+max_time = 3
+
+# initial time and populations
+t = 0 
+x = 3
+
+# empty lists in which to store time and populations
+t_list = []
+x_list = []
+
+# initialize lists
+t_list.append(t)
+x_list.append(x)
+
+#find x and y at different timesteps (basically euler method)
+while t < max_time:
+    # calc new values for t, x
+    t = t + dt
+    #updating population values in the exponential equation
+    x = x + r*x*dt
+
+    # store new values in lists
+    t_list.append(t)
+    x_list.append(x)
+
+# Plot the results    
+p = plt.plot(t_list, x_list, 'g', linewidth = 2)
+plt.xlabel('time')
+plt.ylabel('population size')
+plt.title('Exponential growth of population')
+plt.show()
