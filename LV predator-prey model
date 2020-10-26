@@ -1,0 +1,85 @@
+#Lotka Volterra predator-prey model
+#the populations show periodic oscillations
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+#define parameters
+a = 1
+b = 0.2
+c = 0.5
+d = 0.1
+
+# model parameters
+dt = 0.001
+max_time = 100
+
+# initial time
+t = 0
+# initial population of prey 
+x = 6
+# initial population of predator 
+y = 10
+
+# empty lists in which to store time and populations
+t_list = []
+x_list = []
+y_list = []
+
+# initialize lists
+t_list.append(t)
+x_list.append(x)
+y_list.append(y)
+
+#find x and y at different timesteps (basically euler method)
+while t < max_time:
+    # calc new values for t, x, y
+    t = t + dt
+    #updating prey population
+    x = x + (a*x-b*x*y)*dt
+    #update predator population
+    y = y + (-c*y+d*x*y)*dt
+
+    # store new values in lists
+    t_list.append(t)
+    x_list.append(x)
+    y_list.append(y)
+
+# Plot the results    
+plt.figure(1)
+#p = plt.plot(t_list, x_list, 'r', t_list, y_list, 'g', linewidth = 2)
+plt.plot(t_list,x_list, "-b", label="Prey")
+plt.plot(t_list, y_list,"-r", label="Predator")
+plt.legend(loc="upper right")
+plt.xlabel('time')
+plt.ylabel('population size')
+plt.title('Population dynamics of the system')
+plt.show()
+
+#for phase potrait
+    
+#define the points to form the meshgrid
+xdom = np.linspace(0,15,21);
+ydom = np.linspace(0,15,21);
+#generate the mesh
+[X,Y] = np.meshgrid(xdom,ydom) 
+
+U = X*(a - b*Y)
+V = Y*(-c + d*X)
+
+slice_interval = 2
+skip = (slice(None, None,slice_interval),slice(None,None,slice_interval))
+
+#to normalise the lenght of the arrows
+M = (np.hypot(U, V))
+U = U/M
+V = V/M
+
+#quiver plot/velocity plot
+plt.figure(2)
+plt.quiver(X[skip], Y[skip], U[skip], V[skip], scale=20, color='blue')
+plt.xlabel('population of prey')
+plt.ylabel('population of predator')
+plt.title('Phase portrait')
+plt.show()
