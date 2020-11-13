@@ -1,0 +1,112 @@
+import matplotlib.pyplot as plt
+
+#define parameters
+a = 1 
+b = 0.2 
+c = 0.3
+d = 0.2
+
+p = 0.2
+q = 0.2
+
+#case 1 
+
+#fishing effort
+E = 0.5 
+
+# model parameters
+dt = 0.001
+max_time = 100
+
+# initial time
+t = 0
+# initial population of prey 
+x = 6
+# initial population of predator 
+y = 10
+
+# empty lists in which to store time and populations
+t_list = []
+x_list = []
+y_list = []
+
+# initialize lists
+t_list.append(t)
+x_list.append(x)
+y_list.append(y)
+
+#find x and y at different timesteps (basically euler method)
+while t < max_time:
+    # calc new values for t
+    t = t + dt
+    #updating prey population
+    x = x + (a*x-b*x*y)*dt - (p*E*x)*dt
+    #update predator population
+    y = y + (-c*y+d*x*y)*dt - (q*E*y)*dt
+
+    # store new values in lists
+    t_list.append(t)
+    x_list.append(x)
+    y_list.append(y)
+
+#plot the results (E = 0.5)
+plt.figure(1)
+plt.plot(t_list, x_list, "-b", label="Prey")
+plt.plot(t_list, y_list,"-r", label="Predator")
+plt.legend(loc="upper right")
+plt.xlabel('time')
+plt.ylabel('population size')
+plt.title('Population dynamics of the system')
+plt.tight_layout()
+plt.show()
+
+#case 2
+
+#fishing effort
+E = 2
+
+# model parameters
+dt = 0.001
+max_time = 100
+
+# initial time
+t = 0
+# initial population of prey 
+x = 6
+# initial population of predator 
+y = 10
+
+# empty lists in which to store time and populations
+t_list = []
+x_list = []
+y_list = []
+
+# initialize lists
+t_list.append(t)
+x_list.append(x)
+y_list.append(y)
+
+#find x and y at different timesteps (basically euler method)
+while t < max_time:
+    # calc new values for t, x, y
+    t = t + dt
+    #updating prey population
+    x = x + (a*x-b*x*y)*dt - (p*E*x)*dt
+    #update predator population
+    y = y + (-c*y+d*x*y)*dt - (q*E*y)*dt
+
+    # store new values in lists
+    t_list.append(t)
+    x_list.append(x)
+    y_list.append(y)
+
+#plotting the results (E = 2)
+plt.figure(2)
+plt.plot(t_list, x_list, "-b", label="Prey")
+plt.plot(t_list, y_list,"-r", label="Predator")
+plt.legend(loc="upper right")
+plt.xlabel('time')
+plt.ylabel('population size')
+plt.title('Population dynamics of the system')
+plt.tight_layout()
+plt.show()
