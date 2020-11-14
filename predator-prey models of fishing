@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 #define parameters
 a = 1 
@@ -56,6 +57,7 @@ plt.plot(t_list, y_list,"-r", label="Predator")
 plt.legend(loc="upper right")
 plt.xlabel('time')
 plt.ylabel('population size')
+plt.yticks(np.arange(0, 15, 2))
 plt.title('Population dynamics of the system')
 plt.tight_layout()
 plt.show()
@@ -107,6 +109,7 @@ plt.plot(t_list, y_list,"-r", label="Predator")
 plt.legend(loc="upper right")
 plt.xlabel('time')
 plt.ylabel('population size')
+plt.yticks(np.arange(0, 15, 2))
 plt.title('Population dynamics of the system')
 plt.tight_layout()
 plt.show()
